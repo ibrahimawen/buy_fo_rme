@@ -10,7 +10,11 @@ class Pageview extends StatefulWidget {
 
 class _Pageview extends State<Pageview> {
   int indexs = 0;
-  List<Widget> widgetlist = [HomePage(), Favoritepage(), Cartpage()];
+  List<Widget> widgetlist = [
+    HomePage(),
+    Favoritepage(),
+    CartPage(email: "saoud")
+  ];
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

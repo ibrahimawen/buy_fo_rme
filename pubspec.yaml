@@ -35,7 +35,9 @@ dependencies:
   flutter_bloc: ^8.0.0
   equatable: ^2.0.3
   internet_connection_checker: ^1.0.0+1
-
+  animated_splash_screen: ^1.3.0
+  lottie: ^3.0.0
+  flutter_native_splash: ^2.4.2
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
@@ -78,6 +80,7 @@ flutter:
     - images/games.jpg
     - images/mobiles.jpg
     - images/home.jfif
+    - assets/lottie/splash.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

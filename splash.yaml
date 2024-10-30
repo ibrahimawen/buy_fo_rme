@@ -1,0 +1,13 @@
+flutter_native_splash:
+ color: "ffffff"
+ color_dark: "ffffff"
+ image: images/loginpage.png
+ image_dark: images/loginpage.png
+
+ android_12:
+   color: "ffffff"
+   color_dark: "ffffff"
+   image: images/loginpage.png
+   image_dark: images/loginpage.png
+
+ web: false

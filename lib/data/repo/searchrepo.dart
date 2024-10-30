@@ -5,17 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-part 'home_state.dart';
-
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial()) {
-    fetchProducts();
-  }
-
+class HomeCubit {
   Future<List<dynamic>> fetchProducts() async {
     // emit(HomeLoading());
     final response =
-        await http.get(Uri.parse("http://192.168.1.104:3000/api/getproducts"));
+        await http.get(Uri.parse("http://192.168.3.104:5000/getproducts"));
 
     if (response.statusCode == 200) {
       // emit(HomeSuccess());

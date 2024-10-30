@@ -1,14 +1,22 @@
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+Future<void> addToCart(String username, String producturl) async {
+  final url = Uri.parse('http://192.168.1.104:3000/api/cart');
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({
+      'email': username,
+      'producturl': producturl,
+    }),
+  );
 
-class Cartrepo {
-  static const String _baseurl = 'http://192.168.0.7:3000/cart';
-
-  static Future<http.Response> addtocart(String producturl) async {
-    final url = Uri.parse('$_baseurl');
-    final response =
-        await http.post(url, body: jsonEncode({'url': producturl}));
-    return response;
+  if (response.statusCode == 201) {
+    // Show success message
+    print('Product added to cart successfully!');
+  } else {
+    // Handle error
+    print('Failed to add to cart');
   }
 }

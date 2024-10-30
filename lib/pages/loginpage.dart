@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import '../data/repo/userapirepo.dart';
 import '../core/shared_pref.dart';
+import './pageview.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,6 +13,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isLoading = false;
+
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
@@ -40,29 +43,34 @@ class _LoginPageState extends State<LoginPage> {
         String token = responsedata['token'];
         await SharedPrefHelper.saveToken(token);
         _showErrorDialog('true');
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Login successful!'),
-            backgroundColor: Colors.green,
-            duration: Duration(seconds: 2), // Set the duration of the SnackBar
-          ),
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Pageview()),
         );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text('Login successful!'),
+        //     backgroundColor: Colors.green,
+        //     duration: Duration(seconds: 2), // Set the duration of the SnackBar
+        //   ),
+        // );
       } else {
         _showErrorDialog(response.statusCode.toString());
       }
     } catch (e) {
       _showErrorDialog(e.toString());
     }
+    setState(() {
+      isLoading = false; // Hide progress indicator
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-          child: Container(
-        decoration: BoxDecoration(
+      body: Container(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
           colors: [
             Color(0xFF5db0d1),
@@ -167,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 25,
             ),
             OutlinedButton(
-              onPressed: _login,
+              onPressed: isLoading ? null : _login,
               child: Text(
                 "Login",
                 style: TextStyle(color: Colors.white),
@@ -204,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
             )
           ],
         ),
-      )),
+      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:buyforme/data/repo/cartrepo.dart';
 import 'package:flutter/material.dart';
 import '../data/repo/productrepo.dart'; // Import the service that fetches data
 
@@ -30,12 +31,13 @@ class _ProductPageState extends State<ProductPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Amazon Product Info'),
+        backgroundColor: Color(0xff0377AA),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _productData,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
                 child: CircularProgressIndicator()); // Show loading spinner
           } else if (snapshot.hasError) {
             return Center(
@@ -64,7 +66,7 @@ class _ProductPageState extends State<ProductPage> {
                       Text(
                         product['title'].toString().substring(0, 30) ??
                             'No title available',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -75,7 +77,7 @@ class _ProductPageState extends State<ProductPage> {
                       Text(
                         '${price(product['price'])} LYD' ??
                             'No price available',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Color(0xff0377AA),
                         ),
@@ -85,19 +87,19 @@ class _ProductPageState extends State<ProductPage> {
                       // Display product description
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: Text(
+                        child: const Text(
                           "Description:",
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         // product['description']
                         product['title'] ?? 'No description available',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
@@ -145,7 +147,7 @@ class _ProductPageState extends State<ProductPage> {
                                     backgroundColor: Colors.black,
                                     minimumSize: Size(50, 2)),
                                 onPressed: () {},
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.add,
                                   color: Colors.white,
                                 )),
@@ -153,7 +155,9 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                       ),
                       OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            addToCart('saoud', widget.productUrl);
+                          },
                           child: Row(
                             children: [
                               Icon(
